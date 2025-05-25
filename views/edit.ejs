@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Todo</title>
+    <link rel="stylesheet" href="/CSS/list.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="box">
+        <form action="/edit/<%= task.id %>" method="POST" onsubmit="return validateEditForm()">
+            <input type="text" name="ele1" id="ele1" value="<%= task.description %>">
+            <select name="priority">
+                <option value="high" <%= task.priority === 'high' ? 'selected' : '' %>>High</option>
+                <option value="medium" <%= task.priority === 'medium' ? 'selected' : '' %>>Medium</option>
+                <option value="low" <%= task.priority === 'low' ? 'selected' : '' %>>Low</option>
+            </select>
+            <button type="submit">Save</button>
+        </form>
+        <form action="/delete/<%= task.id %>" method="POST">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+    <%- include('partials/footer') %>
+    <script>
+    function validateEditForm() {
+        var x = document.getElementById("ele1").value;
+        if (x.trim() === "") {
+            alert("Task cannot be empty!");
+            return false;
+        }
+        return true;
+    }
+    </script>
+</body>
+</html>

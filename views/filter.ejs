@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Todo List</title>
+    <link rel="stylesheet" href="/CSS/list.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="box">
+        <h2>Filter Tasks by Priority</h2>
+        <form action="/filter" method="POST">
+            <label for="priority">Select Priority:</label>
+            <select name="priority" id="priority">
+                <option value="all">All</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+        <div class="filter-section">
+            <!-- filter form here -->
+        </div>
+        <div class="filtered-tasks">
+            <ul>
+                <% filteredTasks.forEach(function(task) { %>
+                    <li>
+                        <input type="checkbox" <% if (task.completed) { %> checked <% } %> >
+                        <span data-priority="<%= task.priority %>"><%= task.name %></span>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+    <%- include('partials/footer') %>
+</body>
+</html>

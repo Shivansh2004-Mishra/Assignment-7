@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo list</title>
-    <link rel="stylesheet" href="CSS/list.css">
-</head>
-<body>
-    <div class="box">
-        <h2>Todo list</h2>
-    </div>
-    <div class="box">
-
-       <% for(var i=0 ; i< ejes.length ; i++){%>
+<%- include('partials/header') %>
+<div class="box">
+    <% for(var i=0 ; i< ejes.length ; i++){ %>
         <div class="item">
-            <input type="checkbox">
-            <p> <%= ejes[i] %></p>
+            <!-- Removed checkbox -->
+            <span class="priority-<%= ejes[i].priority %>" data-priority="<%= ejes[i].priority.charAt(0).toUpperCase() + ejes[i].priority.slice(1) %>">
+                <%= ejes[i].description || ejes[i].name %>
+            </span>
+            <!-- Edit and Delete buttons -->
+            <form action="/edit/<%= ejes[i].id %>" method="get" style="display:inline;">
+                <button type="submit">Edit</button>
+            </form>
+            <form action="/delete/<%= ejes[i].id %>" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
         </div>
-       <% }%>
-    
-    <form action="/" method="Post">
-        <input type="text" name="ele1" placeholder="Enter the task">
+    <% } %>
+    <form action="/" method="POST" onsubmit="return validateForm()">
+        <input type="text" name="ele1" id="ele1" placeholder="Enter the task">
+        <select name="priority" id="priority">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+        </select>
         <button type="submit">+</button>
     </form>
-    </div>
-</body>
-</html>
+</div>
+<script>
+function validateForm() {
+    var x = document.getElementById("ele1").value;
+    if (x.trim() === "") {
+        alert("Task cannot be empty!");
+        return false;
+    }
+    return true;
+}
+</script>
+<%- include('partials/footer') %>
