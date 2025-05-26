@@ -2,16 +2,18 @@
 <div class="box">
     <% for(var i=0 ; i< ejes.length ; i++){ %>
         <div class="item">
-            <!-- Removed checkbox -->
-            <span class="priority-<%= ejes[i].priority %>" data-priority="<%= ejes[i].priority.charAt(0).toUpperCase() + ejes[i].priority.slice(1) %>">
+            <span class="priority-<%= ejes[i].priority %>">
+                <%= ejes[i].priority.charAt(0).toUpperCase() + ejes[i].priority.slice(1) %>
+            </span>
+            <span class="task-name">
                 <%= ejes[i].description || ejes[i].name %>
             </span>
             <!-- Edit and Delete buttons -->
             <form action="/edit/<%= ejes[i].id %>" method="get" style="display:inline;">
-                <button type="submit">Edit</button>
+                <button type="submit" class="action-btn"><i class="fa fa-pen"></i></button>
             </form>
             <form action="/delete/<%= ejes[i].id %>" method="post" style="display:inline;">
-                <button type="submit">Delete</button>
+                <button type="submit" class="action-btn"><i class="fa fa-trash"></i></button>
             </form>
         </div>
     <% } %>
